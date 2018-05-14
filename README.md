@@ -1,4 +1,4 @@
-# fnHarbor "Function Harbor"
+# myFaaS - Deploy your own FaaS platform
 An event-driven, open source, Functions-as-a-Service (FaaS) distributed compute platform.
 
 It's Open Source and supports functions written in Java. 
