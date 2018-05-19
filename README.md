@@ -8,10 +8,10 @@ It's very easy to use for developers and very easy to manage for admins/operator
 
 Written in Go
 
-
 <b>Build the project :</b>
-   
-    "execute ./build.sh in the project directory "
+    
+    cd $PROJECT_HOME
+    "./build.sh"
    
    During the execution he bin directory will be deleted and recreated.\
    The "bin" directory will have the following subdirectories:
@@ -23,6 +23,10 @@ Written in Go
 
 <b>Executable output from bin:</b>
 
-    " execute ./run.sh in the project directory "
+    cd $PROJECT_HOME
+    "./run.sh"
      
-  This is execute the "myappengine" executable file in the bin directory.
+  The above will execute the "myappengine" executable file in the bin directory.
+    
+    $PROJECT_HOME is the root of the project 
+    i.e /home/test/work/myappengine
