@@ -7,3 +7,22 @@ You can build your own FaaS compute platform with single server or a cluster eas
 It's very easy to use for developers and very easy to manage for admins/operators.
 
 Written in Go
+
+
+<b>Build the project :</b>
+   
+    "execute ./build.sh in the project directory "
+   
+   During the execution he bin directory will be deleted and recreated.\
+   The "bin" directory will have the following subdirectories:
+
+        bin/configuration - All the *config.json files are stored here.
+        bin/data          - All the data files (i.e deployement info, etc) are stored here.
+        bin/deployments   - All the jars which are uploaded by the user will be stored
+                            here in a uniquely named directory.
+
+<b>Executable output from bin:</b>
+
+    " execute ./run.sh in the project directory "
+     
+  This is execute the "myappengine" executable file in the bin directory.
