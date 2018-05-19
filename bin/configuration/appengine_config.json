@@ -1,0 +1,4 @@
+{
+  "deploymentPath":"./bin/deployments",
+  "logPath":"./bin/data/log"
+}
