@@ -1,4 +1,4 @@
-# FalconAppEngine - Deploy your own FaaS platform
+# MyAppEngine - Deploy your own FaaS / Serverless platform
 An event-driven, open source, Functions-as-a-Service (FaaS) / Serverless platform.
 
 It's Open Source and supports functions written in Java. 
