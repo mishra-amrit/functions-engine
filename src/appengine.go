@@ -12,5 +12,4 @@ func main() {
 	fmt.Println("\nInitializing MyAppEngine..")
 	boot.InitializeAppEngine();
 	fmt.Println("MyAppEngine initialized.")
-
 }

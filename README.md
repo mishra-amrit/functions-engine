@@ -1,9 +1,9 @@
-# MyAppEngine - Deploy your own FaaS / Serverless platform
-An event-driven, open source, Functions-as-a-Service (FaaS) / Serverless platform.
+# MyAppEngine - Deploy your own Serverless platform
+An event-driven, open source, Serverless platform.
 
 It's Open Source and supports functions written in Java. 
 
-You can build your own FaaS compute platform with single server or a cluster easily. 
+You can build your own Serverless compute platform with single server or a cluster easily. 
 It's very easy to use for developers and very easy to manage for admins/operators.
 
 Written in Go
