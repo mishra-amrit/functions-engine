@@ -5,11 +5,17 @@ import (
 	"fmt"
 )
 
-func main() {
+func showBanner(){
 	fmt.Println("===========")
 	fmt.Println("MyAppEngine")
 	fmt.Println("===========")
-	fmt.Println("\nInitializing MyAppEngine..")
+}
+
+func main() {
+
+	showBanner()
+	fmt.Println("Initializing MyAppEngine..")
 	boot.InitializeAppEngine();
 	fmt.Println("MyAppEngine initialized.")
+
 }

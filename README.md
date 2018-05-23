@@ -16,10 +16,10 @@ Written in Go
    During the execution he bin directory will be deleted and recreated.\
    The "bin" directory will have the following subdirectories:
 
-        bin/configuration - All the *config.json files are stored here.
-        bin/data          - All the data files (i.e deployement info, etc) are stored here.
-        bin/deployments   - All the jars which are uploaded by the user will be stored
-                            here in a uniquely named directory.
+    bin/configuration - All the *config.json files are stored here.
+    bin/data          - All the data files (i.e deployement info, etc) are stored here.
+    bin/deployments   - All the jars which are uploaded by the user will be stored
+                        here in a uniquely named directory.
 
 <b>Executable output from bin:</b>
 
