@@ -1,5 +1,6 @@
-# MyAppEngine - Deploy your own serverless platform
-An event-driven, open source, serverless platform.
+# MyAppEngine - Serverless made simple
+ 
+Code > Package > Upload > Ready to Go 
 
 It's open source and supports functions written in Java. 
 
