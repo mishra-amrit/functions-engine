@@ -1,7 +1,7 @@
 package main
 
 import (
-	"boot"
+	"myappengine.io/boot"
 	"fmt"
 )
 
