@@ -1,6 +1,19 @@
-# MyAppEngine - Serverless made simple
+# myAppEngine - Serverless made simple
  
-Code > Package > Upload > Ready to Go 
+<b>1. Code > 2. Package as Jar or zip > 3. Upload to MyAppEngine > 4. Ready to Go !</b>
+
+No SDK, No extra dependencies for your Apps. You just need to write your methods / functions with signatures as specified below. Then just package it as jar or zip and upload it to MyAppEngine.
+
+    public <ResponseDTO-Class> <method-name>()
+
+    public <ResponseDTO-Class> <method-name>(HashMap<String, Object> queryParams)
+
+    public <ResponseDTO-Class> <method-name>(HashMap<String, Object> queryParams, 
+         HashMap<String, Object> pathParams)
+
+    public <ResponseDTO-Class> <method-name>(HashMap<String, Object> queryParams, 
+         HashMap<String, Object> pathParams, 
+         <RequestDTO-Class> payload)
 
 It's open source and supports functions written in Java. 
 
@@ -8,6 +21,9 @@ You can build your own serverless compute platform with single server or a clust
 It's very easy to use for developers and very easy to manage for admins/operators.
 
 Written in Go
+
+Note: Currently it supports only Java apps, future releases will also support Node.js & Go.
+Java apps should be uploaded as a jar, for apps built using Node.js, Go should be uploaded as zip/archives.
 
 <b>Build the project :</b>
     
