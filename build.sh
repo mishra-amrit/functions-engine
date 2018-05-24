@@ -4,5 +4,5 @@ mkdir -p bin/configuration bin/data/log bin/deployments
 cp *config.json bin/configuration/
 
 source ./env-setup.sh
-go build -o bin/myappengine src/myappengine.io/appengine.go
+go build -o bin/myappengine src/myappengine.io/main.go
 chmod a+x bin/myappengine
