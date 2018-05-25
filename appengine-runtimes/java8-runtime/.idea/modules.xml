@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/java8-runtime.iml" filepath="$PROJECT_DIR$/.idea/modules/java8-runtime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/java8-runtime_main.iml" filepath="$PROJECT_DIR$/.idea/modules/java8-runtime_main.iml" group="java8-runtime" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/java8-runtime_test.iml" filepath="$PROJECT_DIR$/.idea/modules/java8-runtime_test.iml" group="java8-runtime" />
+    </modules>
+  </component>
+</project>
