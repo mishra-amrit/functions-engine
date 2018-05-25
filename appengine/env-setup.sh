@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-GOPATH=$PWD
+GOPATH=$PWD:~/go
 GOBIN=$PWD/bin
