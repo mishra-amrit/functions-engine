@@ -32,7 +32,9 @@ func main() {
 
 	showBanner()
 	Log("Initializing MyAppEngine..")
-	Initialize()
+	appEngineEnv := Initialize()
 	Log("MyAppEngine initialized.")
+
+	StartServer(appEngineEnv.AppEngineConfig)
 
 }

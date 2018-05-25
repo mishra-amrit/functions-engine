@@ -19,7 +19,11 @@ package ds
 
 type AppEngineConfig struct {
 	DeploymentPath string `yaml:"deploymentPath"`
+	DataPath       string `yaml:"dataPath"`
 	LogPath        string `yaml:"logPath"`
+
+	ContextPath string `yaml:"contextPath"`
+	ServerPort  string `yaml:"serverPort"`
 }
 
 type AppEngineEnv struct {
@@ -29,6 +33,11 @@ type AppEngineEnv struct {
 type HandlerConfig struct {
 	Method        string
 	InvokationURL string
+}
+
+type RequestMapping struct {
+	Method  string
+	Path    string
 }
 
 const (

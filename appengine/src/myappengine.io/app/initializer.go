@@ -19,9 +19,9 @@ package app
 
 import (
 	"github.com/ghodss/yaml"
+	"io/ioutil"
 	. "myappengine.io/ds"
 	. "myappengine.io/util"
-	"io/ioutil"
 )
 
 func LoadConfiguration(file string) AppEngineConfig {

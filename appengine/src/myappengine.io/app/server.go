@@ -16,3 +16,14 @@
  */
 
 package app
+
+import (
+	"myappengine.io/ds"
+	"net/http"
+	"myappengine.io/handler"
+)
+
+func StartServer(appEngineConfig ds.AppEngineConfig) {
+	handler.AttachHandlers(appEngineConfig)
+	http.ListenAndServe(":"+appEngineConfig.ServerPort, nil)
+}

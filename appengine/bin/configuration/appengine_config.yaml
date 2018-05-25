@@ -2,4 +2,7 @@
 
 # deploymentPath : This the path where all the apps will be placed in separate directories along with configurations
 deploymentPath: ./bin/deployments
-logPath:  ./bin/data/log
+logPath:  ./bin/log
+dataPath: ./bin/data
+serverPort: 8030
+contextPath: /myappengine/v1
