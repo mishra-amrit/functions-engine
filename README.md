@@ -2,7 +2,7 @@
  
 <b>1. Code > 2. Package as Jar or zip > 3. Upload to MyAppEngine > 4. Ready to Go !</b>
 
-No SDK, No extra dependencies for your Apps. You just need to write your methods / functions with signatures as specified below. Then just package it as jar or zip and upload it to MyAppEngine.
+No SDK, No extra dependencies for your Apps. You just need to write your methods / functions with signatures as specified below, then just package it as jar or zip and upload it to MyAppEngine.
 
     public <ResponseDTO-Class> <method-name>()
 
@@ -33,7 +33,7 @@ Java apps should be uploaded as a jar, for apps built using Node.js, Go should b
    During the execution he bin directory will be deleted and recreated.\
    The "bin" directory will have the following subdirectories:
 
-    bin/configuration - All the *config.json files are stored here.
+    bin/configuration - All the *config.yaml files are stored here.
     bin/data          - All the data files (i.e deployement info, etc) are stored here.
     bin/deployments   - All the jars which are uploaded by the user will be stored
                         here in a uniquely named directory.
