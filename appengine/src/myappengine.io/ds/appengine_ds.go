@@ -24,6 +24,8 @@ type AppEngineConfig struct {
 
 	ContextPath string `yaml:"contextPath"`
 	ServerPort  string `yaml:"serverPort"`
+
+	JavaRuntimeExec    string `yaml:"javaRuntimeExec"`
 }
 
 type AppEngineEnv struct {
@@ -36,8 +38,8 @@ type HandlerConfig struct {
 }
 
 type RequestMapping struct {
-	Method  string
-	Path    string
+	Method string
+	Path   string
 }
 
 const (

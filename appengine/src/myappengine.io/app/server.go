@@ -19,11 +19,18 @@ package app
 
 import (
 	"myappengine.io/ds"
-	"net/http"
 	"myappengine.io/handler"
+	"net/http"
 )
 
 func StartServer(appEngineConfig ds.AppEngineConfig) {
-	handler.AttachHandlers(appEngineConfig)
+
+	/* Attach handlers by invoking the attachHandler functions */
+	handler.AttachAppEngineHeartbeatHandler(appEngineConfig)
+	handler.AttachAppRegistrationHandler(appEngineConfig)
+	handler.AttachAppListHandler(appEngineConfig)
+
+	/* Start the listener */
 	http.ListenAndServe(":"+appEngineConfig.ServerPort, nil)
+
 }
