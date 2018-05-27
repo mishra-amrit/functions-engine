@@ -1,11 +1,28 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package handlers
 
 import (
 	"encoding/json"
+	"github.com/gorilla/mux"
 	"myappengine.io/ds"
 	. "myappengine.io/util"
 	"net/http"
-	"github.com/gorilla/mux"
 )
 
 /*
@@ -14,8 +31,8 @@ import (
 	It is the only function in a handlers which is exported.
 */
 func AttachAppListHandler(appEngineConfig ds.AppEngineConfig, router *mux.Router) {
-	path := "/app/list"
-	(*router).HandleFunc(appEngineConfig.ContextPath+path, appListHandler)
+	path := "/app"
+	(*router).HandleFunc(appEngineConfig.ContextPath+path, appListHandler).Methods("GET")
 }
 
 /*
@@ -23,22 +40,18 @@ func AttachAppListHandler(appEngineConfig ds.AppEngineConfig, router *mux.Router
 */
 func appListHandler(respWriter http.ResponseWriter, request *http.Request) {
 
-	Log("Received : " + request.Method + "\t" + request.RequestURI)
+	Log("appListHandler \t\t:: received : " + request.Method + "\t" + request.RequestURI)
 
-	if request.Method == "GET" {
-		heartbeatResp := ds.RegisterAppResponse{Message: "Service is up !"}
-		response, err := json.Marshal(heartbeatResp)
+	heartbeatResp := ds.RegisterAppResponse{Message: "Service is up !"}
+	response, err := json.Marshal(heartbeatResp)
 
-		if err != nil {
-			http.Error(respWriter, err.Error(), 500)
-			return
-		}
-
-		respWriter.Header().Set("content-type", "application/json")
-		respWriter.Write(response)
+	if err != nil {
+		http.Error(respWriter, err.Error(), 500)
 		return
-	} else {
-		respWriter.WriteHeader(405)
 	}
+
+	respWriter.Header().Set("content-type", "application/json")
+	respWriter.Write(response)
+	return
 
 }

@@ -18,10 +18,10 @@
 package app
 
 import (
+	"github.com/gorilla/mux"
 	"myappengine.io/ds"
 	"myappengine.io/handlers"
 	"net/http"
-	"github.com/gorilla/mux"
 )
 
 func StartServer(appEngineConfig ds.AppEngineConfig) {
