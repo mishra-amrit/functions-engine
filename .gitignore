@@ -1,3 +1,4 @@
 /bin/myappengine
 /appengine-runtimes/java8-runtime/out
 /appengine-runtimes/java8-runtime/bin
+/appengine-runtimes/java8-runtime/build

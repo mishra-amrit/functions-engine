@@ -25,7 +25,7 @@ type AppEngineConfig struct {
 	ContextPath string `yaml:"contextPath"`
 	ServerPort  string `yaml:"serverPort"`
 
-	JavaRuntimeExec    string `yaml:"javaRuntimeExec"`
+	JavaRuntimeExec string `yaml:"javaRuntimeExec"`
 }
 
 type AppEngineEnv struct {

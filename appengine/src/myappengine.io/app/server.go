@@ -19,18 +19,22 @@ package app
 
 import (
 	"myappengine.io/ds"
-	"myappengine.io/handler"
+	"myappengine.io/handlers"
 	"net/http"
+	"github.com/gorilla/mux"
 )
 
 func StartServer(appEngineConfig ds.AppEngineConfig) {
 
+	router := mux.NewRouter()
+
 	/* Attach handlers by invoking the attachHandler functions */
-	handler.AttachAppEngineHeartbeatHandler(appEngineConfig)
-	handler.AttachAppRegistrationHandler(appEngineConfig)
-	handler.AttachAppListHandler(appEngineConfig)
+	handlers.AttachAppEngineHeartbeatHandler(appEngineConfig, router)
+	handlers.AttachAppRegistrationHandler(appEngineConfig, router)
+	handlers.AttachAppListHandler(appEngineConfig, router)
+	handlers.AttachAppInvokeHandler(appEngineConfig, router)
 
 	/* Start the listener */
-	http.ListenAndServe(":"+appEngineConfig.ServerPort, nil)
+	http.ListenAndServe(":"+appEngineConfig.ServerPort, router)
 
 }
