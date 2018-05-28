@@ -37,7 +37,7 @@ func main() {
 	appEngineEnv := app.Initialize()
 
 	Log("Initialize DataStore..")
-	datastore.InitializeDataStore(appEngineEnv.AppEngineConfig)
+	datastore.Initialize(appEngineEnv.AppEngineConfig)
 	Log("DataStore initialized.")
 
 	Log("MyAppEngine initialized.")
