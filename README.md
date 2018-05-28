@@ -56,3 +56,8 @@ Java apps should be uploaded as a jar, for apps built using Node.js, Go should b
     
     $PROJECT_HOME is the root of the project 
     i.e /home/test/work/myappengine/appengine
+    
+Java 8 Runtime Documentation
+     
+     https://github.com/mishra-amrit/myappengine/tree/master/appengine-runtimes/java8-runtime
+
