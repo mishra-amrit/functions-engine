@@ -19,12 +19,12 @@ package app
 
 import (
 	"github.com/gorilla/mux"
-	"myappengine.io/ds"
 	"myappengine.io/handlers"
+	"myappengine.io/structs"
 	"net/http"
 )
 
-func StartServer(appEngineConfig ds.AppEngineConfig) {
+func StartServer(appEngineConfig structs.AppEngineConfig) {
 
 	router := mux.NewRouter()
 

@@ -18,7 +18,8 @@
 package main
 
 import (
-	. "myappengine.io/app"
+	"myappengine.io/app"
+	"myappengine.io/datastore"
 	. "myappengine.io/util"
 )
 
@@ -31,10 +32,16 @@ func showBanner() {
 func main() {
 
 	showBanner()
+
 	Log("Initializing MyAppEngine..")
-	appEngineEnv := Initialize()
+	appEngineEnv := app.Initialize()
+
+	Log("Initialize DataStore..")
+	datastore.InitializeDataStore(appEngineEnv.AppEngineConfig)
+	Log("DataStore initialized.")
+
 	Log("MyAppEngine initialized.")
 
-	StartServer(appEngineEnv.AppEngineConfig)
+	app.StartServer(appEngineEnv.AppEngineConfig)
 
 }

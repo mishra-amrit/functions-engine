@@ -20,13 +20,13 @@ package handlers
 import (
 	"encoding/json"
 	"github.com/gorilla/mux"
-	"myappengine.io/ds"
+	"myappengine.io/structs"
 	. "myappengine.io/util"
 	"net/http"
 )
 
-/*  Registration Request  */
-type RegisterAppRequest struct {
+/*  App Create / Update Request  */
+type AppMgmtRequest struct {
 	AppName                  string `json:"appName"`
 	AppLang                  string `json:"appLang"`
 	ClassName                string `json:"className"`
@@ -35,8 +35,8 @@ type RegisterAppRequest struct {
 	ResponsePayloadClassName string `json:"responsePayloadClassName"`
 }
 
-/*  Registration Request  */
-type RegisterAppResponse struct {
+/*  App Create / Update Resposne  */
+type AppMgmtResponse struct {
 	Message string `json:"message"`
 }
 
@@ -45,7 +45,7 @@ type RegisterAppResponse struct {
 	It is always exported in the Go file, for each handlers.
 	It is the only function in a handlers which is exported.
 */
-func AttachAppRegistrationHandler(appEngineConfig ds.AppEngineConfig, router *mux.Router) {
+func AttachAppRegistrationHandler(appEngineConfig structs.AppEngineConfig, router *mux.Router) {
 	createAppPath := "/app"
 	(*router).HandleFunc(appEngineConfig.ContextPath+createAppPath, appCreationHandler).Methods("POST")
 	updateAppPath := "/app/{appName}"
@@ -59,7 +59,7 @@ func appCreationHandler(respWriter http.ResponseWriter, request *http.Request) {
 
 	Log("appCreationHandler \t:: received : " + request.Method + "\t" + request.RequestURI)
 
-	heartbeatResp := ds.RegisterAppResponse{Message: "Service is up !"}
+	heartbeatResp := AppMgmtResponse{Message: "Service is up !"}
 	response, err := json.Marshal(heartbeatResp)
 
 	if err != nil {
@@ -81,7 +81,7 @@ func appUpdationHandler(respWriter http.ResponseWriter, request *http.Request) {
 
 	Log("appUpdationHandler \t:: received : " + request.Method + "\t" + request.RequestURI)
 
-	heartbeatResp := ds.RegisterAppResponse{Message: "Service is up !"}
+	heartbeatResp := AppMgmtResponse{Message: "Service is up !"}
 	response, err := json.Marshal(heartbeatResp)
 
 	if err != nil {

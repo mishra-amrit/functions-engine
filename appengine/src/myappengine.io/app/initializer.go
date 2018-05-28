@@ -20,13 +20,13 @@ package app
 import (
 	"github.com/ghodss/yaml"
 	"io/ioutil"
-	"myappengine.io/ds"
+	"myappengine.io/structs"
 	. "myappengine.io/util"
 )
 
-func LoadConfiguration(file string) ds.AppEngineConfig {
+func LoadConfiguration(file string) structs.AppEngineConfig {
 
-	var config ds.AppEngineConfig
+	var config structs.AppEngineConfig
 
 	data, err := ioutil.ReadFile(file)
 	Log(string(data[:]))
@@ -39,11 +39,11 @@ func LoadConfiguration(file string) ds.AppEngineConfig {
 
 }
 
-func Initialize() ds.AppEngineEnv {
+func Initialize() structs.AppEngineEnv {
 
 	Log("Loading Configurations..")
 
-	appEngineEnv := ds.AppEngineEnv{}
+	appEngineEnv := structs.AppEngineEnv{}
 	appEngineConfig := LoadConfiguration("configuration/myappengine_config.yaml")
 
 	Log("LogPath \t: " + appEngineConfig.LogPath)

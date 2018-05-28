@@ -20,17 +20,22 @@ package handlers
 import (
 	"encoding/json"
 	"github.com/gorilla/mux"
-	"myappengine.io/ds"
+	"myappengine.io/structs"
 	. "myappengine.io/util"
 	"net/http"
 )
+
+/*  Response struct for List of Apps  */
+type AppListResponse struct {
+	Message string `json:"message"`
+}
 
 /*
 	The attach function which attaches the handlers to the server.
 	It is always exported in the Go file, for each handlers.
 	It is the only function in a handlers which is exported.
 */
-func AttachAppListHandler(appEngineConfig ds.AppEngineConfig, router *mux.Router) {
+func AttachAppListHandler(appEngineConfig structs.AppEngineConfig, router *mux.Router) {
 	path := "/app"
 	(*router).HandleFunc(appEngineConfig.ContextPath+path, appListHandler).Methods("GET")
 }
@@ -42,7 +47,7 @@ func appListHandler(respWriter http.ResponseWriter, request *http.Request) {
 
 	Log("appListHandler \t\t:: received : " + request.Method + "\t" + request.RequestURI)
 
-	heartbeatResp := ds.RegisterAppResponse{Message: "Service is up !"}
+	heartbeatResp := AppListResponse{Message: "Service is up !"}
 	response, err := json.Marshal(heartbeatResp)
 
 	if err != nil {
