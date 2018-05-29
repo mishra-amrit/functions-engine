@@ -1,14 +1,14 @@
-# myAppEngine - Serverless Computing Made Simple
+# FunctionsEngine - Simple Serverless Platform
 
 Serverless computing is a cloud computing model which lets you focus on your application logic without worrying about underlying servers, scalability, load balancing, application servers, etc.
 
-With myAppEngine you can deploy your own serverless computing platform.
+With FunctionsEngine you can deploy your own serverless computing platform.
 
-<b>1. Code > 2. Package as Jar or zip > 3. Upload to MyAppEngine > 4. Ready to Go !</b>
+<b>1. Code > 2. Package as Jar or zip > 3. Upload to FunctionsEngine > 4. Ready to Go !</b>
 
 It's free & open source. Feel free to reach out for questions, suggestions & contributions to mishra.amrit@outlook.com
 
-No SDK, No extra dependencies for your Apps. You just need to write your methods / functions with signatures as specified below, then just package it as jar or zip and upload it to MyAppEngine.
+No SDK, No extra dependencies for your Apps. You just need to write your methods / functions with signatures as specified below, then just package it as jar or zip and upload it to FunctionsEngine.
 
     public <ResponseDTO-Class> <method-name>()
 
@@ -52,11 +52,11 @@ Java apps should be uploaded as a jar, for apps built using Node.js, Go should b
     "./run.sh"
     Note : You need to move to that directory where ./run.sh exists and execute it there.
      
-  The above will execute the "myappengine" executable file in the bin directory.
+  The above will execute the "FunctionsEngine" executable file in the bin directory.
     
     $PROJECT_HOME is the root of the project 
-    i.e /home/test/work/myappengine/appengine
+    i.e /home/test/work/FunctionsEngine/appengine
     
 <b>Java 8 Runtime Documentation :</b><br/>
-<a href="https://github.com/mishra-amrit/myappengine/tree/master/appengine-runtimes/java8-runtime">https://github.com/mishra-amrit/myappengine/tree/master/appengine-runtimes/java8-runtime</a>
+<a href="https://github.com/mishra-amrit/myappengine/tree/master/appengine-runtimes/java8-runtime">https://github.com/mishra-amrit/FunctionsEngine/tree/master/appengine-runtimes/java8-runtime</a>
 
