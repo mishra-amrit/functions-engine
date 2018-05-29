@@ -1,0 +1,11 @@
+#Configurations for myAppEngine
+
+# deploymentPath : This the path where all the apps will be placed in separate directories along with configurations
+deploymentPath: ./bin/deployments
+logPath:  ./bin/log
+dataPath: /Users/amritmishra/Documents/GitHub-projects/FunctionsEngine/engine/src/functionsEngine.io/datastore/data
+
+serverPort: 8030
+contextPath: /myappengine/v1
+
+javaRuntimeExec: java -jar runtime/java8/java8-runtime.jar
