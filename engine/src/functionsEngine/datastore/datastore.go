@@ -1,16 +1,18 @@
 package datastore
 
 import (
-	"gopkg.in/yaml.v2"
-	"io/ioutil"
 	"functionsEngine/structs"
 	. "functionsEngine/util"
+	"gopkg.in/yaml.v2"
+	"io/ioutil"
 	"os"
 	"sync"
 )
+
 var mu sync.Mutex
 
 const appRepoFileName = "app_repo.yaml"
+
 var dataPath string
 
 var isDsInitialized = false
@@ -24,13 +26,15 @@ func Initialize(config structs.AppEngineConfig) {
 		if !os.IsNotExist(err) {
 			Log("File exists")
 			/* Load the appRepository. This contains all the registered app information. */
-			loadAppRepository(dataPath)
+			if loadAppRepository(dataPath) {
+				Log("App Repository Loaded.")
+			}
 			isDsInitialized = true
 		} else {
 			Log("File does not exist")
 			appRepoFileBuffer, marshalErr := yaml.Marshal(appRepo)
 			if marshalErr == nil {
-				ioutil.WriteFile(config.DataPath + "/" + appRepoFileName, appRepoFileBuffer, 0666)
+				ioutil.WriteFile(config.DataPath+"/"+appRepoFileName, appRepoFileBuffer, 0666)
 			}
 		}
 	} else {
@@ -39,9 +43,9 @@ func Initialize(config structs.AppEngineConfig) {
 }
 
 func loadAppRepository(appRepoLocation string) bool {
-	appRepoFileBuffer, err := ioutil.ReadFile(appRepoLocation + "/" + appRepoFileName)
-	if err == nil {
-		yamlReadErr := yaml.Unmarshal(appRepoFileBuffer, appRepo)
+	appRepoFileBuffer, fileReadErr := ioutil.ReadFile(appRepoLocation + "/" + appRepoFileName)
+	if fileReadErr == nil {
+		yamlReadErr := yaml.Unmarshal(appRepoFileBuffer, &appRepo)
 		if yamlReadErr == nil {
 			return true
 		}
@@ -50,15 +54,15 @@ func loadAppRepository(appRepoLocation string) bool {
 	return false
 }
 
-func GetAppRepository() AppRepo {
+func AppRepository() AppRepo {
 	return appRepo
 }
 
-func CommitAppRepository(){
+func Commit() {
 	mu.Lock()
 	appRepoFileBuffer, marshalErr := yaml.Marshal(appRepo)
 	if marshalErr == nil {
-		ioutil.WriteFile(dataPath + "/" + appRepoFileName, appRepoFileBuffer, 0666)
+		ioutil.WriteFile(dataPath+"/"+appRepoFileName, appRepoFileBuffer, 0666)
 	}
 	mu.Unlock()
 }

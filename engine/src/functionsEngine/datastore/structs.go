@@ -17,6 +17,11 @@
 
 package datastore
 
+type BasicAppData struct {
+	AppName string `yaml:"appName"`
+	AppLang string `yaml:"appLang"`
+}
+
 type AppConfigData struct {
 	AppId         string            `yaml:"appId"`
 	AppName       string            `yaml:"appName"`

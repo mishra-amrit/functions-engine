@@ -18,10 +18,10 @@
 package app
 
 import (
-	"github.com/ghodss/yaml"
-	"io/ioutil"
 	"functionsEngine/structs"
 	. "functionsEngine/util"
+	"github.com/ghodss/yaml"
+	"io/ioutil"
 )
 
 func LoadConfiguration(file string) structs.AppEngineConfig {

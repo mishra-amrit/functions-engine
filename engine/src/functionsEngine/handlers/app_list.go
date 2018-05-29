@@ -19,15 +19,16 @@ package handlers
 
 import (
 	"encoding/json"
-	"github.com/gorilla/mux"
+	"functionsEngine/datastore"
 	"functionsEngine/structs"
 	. "functionsEngine/util"
+	"github.com/gorilla/mux"
 	"net/http"
 )
 
 /*  Response struct for List of Apps  */
 type AppListResponse struct {
-	Message string `json:"message"`
+	apps []datastore.BasicAppData `yaml:"apps"`
 }
 
 /*
@@ -47,8 +48,14 @@ func appListHandler(respWriter http.ResponseWriter, request *http.Request) {
 
 	Log("appListHandler \t\t:: received : " + request.Method + "\t" + request.RequestURI)
 
-	heartbeatResp := AppListResponse{Message: "Service is up !"}
-	response, err := json.Marshal(heartbeatResp)
+	appListResponse := AppListResponse{}
+
+	apps := datastore.AppRepository().Apps
+	for appName, appConfigData := range apps {
+		appListResponse.apps = append(appListResponse.apps, datastore.BasicAppData{AppName: appName, AppLang: appConfigData.AppLang})
+	}
+
+	response, err := json.Marshal(appListResponse)
 
 	if err != nil {
 		http.Error(respWriter, err.Error(), 500)

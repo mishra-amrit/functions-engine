@@ -4,7 +4,7 @@ type AppRepo struct {
 	Apps map[string]AppConfigData `yaml:"apps"`
 }
 
-func (appRepo AppRepo) add(appConfigData AppConfigData) OperationResult {
+func (appRepo AppRepo) Add(appConfigData AppConfigData) OperationResult {
 	/* Check if the app is already registered. */
 	for appName := range appRepo.Apps {
 		/* If app is already registered, then skip */
@@ -19,7 +19,7 @@ func (appRepo AppRepo) add(appConfigData AppConfigData) OperationResult {
 	return OperationResult{Message: "App registered", Status: true}
 }
 
-func (appRepo AppRepo) delete(targetAppName string) OperationResult {
+func (appRepo AppRepo) Delete(targetAppName string) OperationResult {
 	/* Check if the app exists */
 	for appName := range appRepo.Apps {
 		if appName == targetAppName {
@@ -31,7 +31,7 @@ func (appRepo AppRepo) delete(targetAppName string) OperationResult {
 	return OperationResult{Message: "No such app exists.", Status: false}
 }
 
-func (appRepo AppRepo) get(targetAppName string) *AppConfigData {
+func (appRepo AppRepo) Get(targetAppName string) *AppConfigData {
 	/* Check if the app exists */
 	for appName, appConfigData := range appRepo.Apps {
 		if appName == targetAppName {

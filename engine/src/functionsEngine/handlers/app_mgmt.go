@@ -19,10 +19,15 @@ package handlers
 
 import (
 	"encoding/json"
-	"github.com/gorilla/mux"
-	"functionsEngine/structs"
-	. "functionsEngine/util"
+	"io/ioutil"
 	"net/http"
+
+	"functionsEngine/datastore"
+	"functionsEngine/structs"
+. "functionsEngine/util"
+
+"github.com/gorilla/mux"
+
 )
 
 /*  App Create / Update Request  */
@@ -59,8 +64,30 @@ func appCreationHandler(respWriter http.ResponseWriter, request *http.Request) {
 
 	Log("appCreationHandler \t:: received : " + request.Method + "\t" + request.RequestURI)
 
-	heartbeatResp := AppMgmtResponse{Message: "Service is up !"}
-	response, err := json.Marshal(heartbeatResp)
+	body, err := ioutil.ReadAll(request.Body)
+	defer request.Body.Close()
+	if err != nil {
+		http.Error(respWriter, err.Error(), 500)
+		return
+	}
+
+	var reqBody AppMgmtRequest
+	err = json.Unmarshal(body, &reqBody)
+	if err != nil {
+		http.Error(respWriter, err.Error(), 500)
+		return
+	}
+
+	datastore.AppRepository().Add(datastore.AppConfigData{
+		AppName:reqBody.AppName,
+		AppLang:reqBody.AppLang,
+		AppId:reqBody.AppName,
+		AppLocation:"NA",
+		Ap
+	})
+
+	appCreationResp := AppMgmtResponse{Message: "Service is up !"}
+	response, err := json.Marshal(appCreationResp)
 
 	if err != nil {
 		http.Error(respWriter, err.Error(), 500)
@@ -81,8 +108,8 @@ func appUpdationHandler(respWriter http.ResponseWriter, request *http.Request) {
 
 	Log("appUpdationHandler \t:: received : " + request.Method + "\t" + request.RequestURI)
 
-	heartbeatResp := AppMgmtResponse{Message: "Service is up !"}
-	response, err := json.Marshal(heartbeatResp)
+	appUpdationResp := AppMgmtResponse{Message: "Service is up !"}
+	response, err := json.Marshal(appUpdationResp)
 
 	if err != nil {
 		http.Error(respWriter, err.Error(), 500)

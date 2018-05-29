@@ -18,9 +18,9 @@
 package app
 
 import (
-	"github.com/gorilla/mux"
 	"functionsEngine/handlers"
 	"functionsEngine/structs"
+	"github.com/gorilla/mux"
 	"net/http"
 )
 

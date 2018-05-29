@@ -25,7 +25,7 @@ import (
 
 func showBanner() {
 	Log("*****************************************************")
-	Log("FunctionsEngine | version : 0.1 | FaaS | Serverless")
+	Log(" FunctionsEngine | version : 0.1 | FaaS | Serverless")
 	Log("*****************************************************")
 }
 

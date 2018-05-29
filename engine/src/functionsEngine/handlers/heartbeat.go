@@ -19,9 +19,9 @@ package handlers
 
 import (
 	"encoding/json"
-	"github.com/gorilla/mux"
 	"functionsEngine/structs"
 	. "functionsEngine/util"
+	"github.com/gorilla/mux"
 	"net/http"
 )
 
