@@ -33,7 +33,7 @@ Java apps should be uploaded as a jar, for apps built using Node.js, Go should b
 
 <b>Build the project :</b>
     
-    cd $PROJECT_HOME/appengine
+    cd $PROJECT_HOME/engine
     "./build.sh"
     Note : You need to move to that directory where ./build.sh exists and execute it there.
 
@@ -48,15 +48,15 @@ Java apps should be uploaded as a jar, for apps built using Node.js, Go should b
 
 <b>Executable output from bin:</b>
 
-    cd $PROJECT_HOME/appengine
+    cd $PROJECT_HOME/engine
     "./run.sh"
     Note : You need to move to that directory where ./run.sh exists and execute it there.
      
   The above will execute the "FunctionsEngine" executable file in the bin directory.
     
     $PROJECT_HOME is the root of the project 
-    i.e /home/test/work/FunctionsEngine/appengine
+    i.e /home/test/work/FunctionsEngine/engine
     
 <b>Java 8 Runtime Documentation :</b><br/>
-<a href="https://github.com/mishra-amrit/myappengine/tree/master/appengine-runtimes/java8-runtime">https://github.com/mishra-amrit/FunctionsEngine/tree/master/appengine-runtimes/java8-runtime</a>
+<a href="https://github.com/mishra-amrit/myappengine/tree/master/appengine-runtimes/java8-runtime">https://github.com/mishra-amrit/FunctionsEngine/tree/master/functionRuntimes/java8-runtime</a>
 
