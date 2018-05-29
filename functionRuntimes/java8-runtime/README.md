@@ -1,5 +1,5 @@
-# myAppEngine runtime for Java 8
-Performs the execution of Java apps uploaded to myAppEngine. This forms as a base for the Java apps.
+# FunctionsEngine runtime for Java 8
+Performs the execution of Java apps uploaded to FunctionsEngine. This forms as a base for the Java apps.
 
 The target class of App should have one or more of the following method signatures :
 	
@@ -14,15 +14,15 @@ The target class of App should have one or more of the following method signatur
 						HashMap<String, Object> pathParams, 
 						<RequestDTO-Class> payload)
 
-The below requests will be pushed from MyAppEngine to the runtime for registration and execution of App.
+The below requests will be pushed from FunctionsEngine to the runtime for registration and execution of App.
                           		
 To register a jar :
 
-    POST http://127.0.0.1:8010/myappengine-runtime-java/v1/load
+    POST http://127.0.0.1:8010/functionsengine-runtime-java/v1/load
     Body : 
     {
       "appName":"TestApp",
-      "jarFilePath":"/Users/amritmishra/Documents/workspace-open/TestProject/build/libs/TestProject.jar",
+      "jarFilePath":"/Users/test/Documents/workspace-open/TestProject/build/libs/TestProject.jar",
       "className":"com.aklabs.TestPrg",
       "methodName":"process",
       "requestPayloadClassName":"com.aklabs.RequestDTO",
@@ -31,11 +31,11 @@ To register a jar :
 	
 To re-register a jar :
 
-    PUT http://127.0.0.1:8010/myappengine-runtime-java/v1/load
+    PUT http://127.0.0.1:8010/functionsengine-runtime-java/v1/load
     Body : 
     {
       "appName":"TestApp",
-      "jarFilePath":"/Users/amritmishra/Documents/workspace-open/TestProject/build/libs/TestProject.jar",
+      "jarFilePath":"/Users/test/Documents/workspace-open/TestProject/build/libs/TestProject.jar",
       "className":"com.aklabs.TestPrg",
       "methodName":"process",
       "requestPayloadClassName":"com.aklabs.RequestDTO",
@@ -44,7 +44,7 @@ To re-register a jar :
 
 To execute the method :
 
-    POST http://127.0.0.1:8010/myappengine-runtime-java/v1/exec/TestApp
+    POST http://127.0.0.1:8010/functionsengine-runtime-java/v1/exec/TestApp
     {
       "queryParams":[{"key":"param1","value":"value1"},{"key":"param2","value":"value2"}],
       "pathParams":[{"key":"param3","value":"value3"},{"key":"param4","value":"value4"}],
