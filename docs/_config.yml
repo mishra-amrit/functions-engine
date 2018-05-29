@@ -1,5 +1,3 @@
 theme: jekyll-theme-cayman
 name: FunctionsEngine
 description: Serverless made simple
-Deploy your own serverless computing platform with FunctionsEngine
-<b>1. Code > 2. Package as Jar or zip > 3. Upload to FunctionsEngine > 4. Ready to Go !</b>
