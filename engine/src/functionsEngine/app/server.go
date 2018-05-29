@@ -15,33 +15,26 @@
  * limitations under the License.
  */
 
-package main
+package app
 
 import (
-	"functionsEngine.io/app"
-	"functionsEngine.io/datastore"
-	. "functionsEngine.io/util"
+	"github.com/gorilla/mux"
+	"functionsEngine/handlers"
+	"functionsEngine/structs"
+	"net/http"
 )
 
-func showBanner() {
-	Log("*****************************************************")
-	Log("FunctionsEngine | version : 0.1 | FaaS | Serverless")
-	Log("*****************************************************")
-}
+func StartServer(appEngineConfig structs.AppEngineConfig) {
 
-func main() {
+	router := mux.NewRouter()
 
-	showBanner()
+	/* Attach handlers by invoking the attachHandler functions */
+	handlers.AttachAppEngineHeartbeatHandler(appEngineConfig, router)
+	handlers.AttachAppRegistrationHandler(appEngineConfig, router)
+	handlers.AttachAppListHandler(appEngineConfig, router)
+	handlers.AttachAppInvokeHandler(appEngineConfig, router)
 
-	Log("Initializing Engine..")
-	appEngineEnv := app.Initialize()
-
-	Log("Initialize DataStore..")
-	datastore.Initialize(appEngineEnv.AppEngineConfig)
-	Log("DataStore initialized.")
-
-	Log("Engine Initialized.")
-
-	app.StartServer(appEngineEnv.AppEngineConfig)
+	/* Start the listener */
+	http.ListenAndServe(":"+appEngineConfig.ServerPort, router)
 
 }

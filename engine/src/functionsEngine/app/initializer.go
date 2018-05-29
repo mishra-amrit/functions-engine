@@ -20,8 +20,8 @@ package app
 import (
 	"github.com/ghodss/yaml"
 	"io/ioutil"
-	"functionsEngine.io/structs"
-	. "functionsEngine.io/util"
+	"functionsEngine/structs"
+	. "functionsEngine/util"
 )
 
 func LoadConfiguration(file string) structs.AppEngineConfig {

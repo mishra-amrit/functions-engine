@@ -20,13 +20,14 @@ package handlers
 import (
 	"encoding/json"
 	"github.com/gorilla/mux"
-	"functionsEngine.io/structs"
-	. "functionsEngine.io/util"
+	"functionsEngine/structs"
+	. "functionsEngine/util"
 	"net/http"
 )
 
-type HeartbeatResponse struct {
-	Message string
+/*  Response struct for List of Apps  */
+type AppListResponse struct {
+	Message string `json:"message"`
 }
 
 /*
@@ -34,32 +35,28 @@ type HeartbeatResponse struct {
 	It is always exported in the Go file, for each handlers.
 	It is the only function in a handlers which is exported.
 */
-func AttachAppEngineHeartbeatHandler(appEngineConfig structs.AppEngineConfig, router *mux.Router) {
-	path := "/heartbeat"
-	(*router).HandleFunc(appEngineConfig.ContextPath+path, heartbeatHandler).Methods("GET")
+func AttachAppListHandler(appEngineConfig structs.AppEngineConfig, router *mux.Router) {
+	path := "/app"
+	(*router).HandleFunc(appEngineConfig.ContextPath+path, appListHandler).Methods("GET")
 }
 
 /*
-	The handlers is not exported, it's attached to the server by AttachHeartbeatHandler()
+	The handlers is not exported, it's attached to the server by AttachRegisterAppHandler()
 */
-func heartbeatHandler(respWriter http.ResponseWriter, request *http.Request) {
+func appListHandler(respWriter http.ResponseWriter, request *http.Request) {
 
-	Log("heartbeatHandler \t:: received : " + request.Method + "\t" + request.RequestURI)
+	Log("appListHandler \t\t:: received : " + request.Method + "\t" + request.RequestURI)
 
-	if request.Method == "GET" {
-		heartbeatResp := HeartbeatResponse{Message: "Service is up !"}
-		response, err := json.Marshal(heartbeatResp)
+	heartbeatResp := AppListResponse{Message: "Service is up !"}
+	response, err := json.Marshal(heartbeatResp)
 
-		if err != nil {
-			http.Error(respWriter, err.Error(), 500)
-			return
-		}
-
-		respWriter.Header().Set("content-type", "application/json")
-		respWriter.Write(response)
+	if err != nil {
+		http.Error(respWriter, err.Error(), 500)
 		return
-	} else {
-		respWriter.WriteHeader(405)
 	}
+
+	respWriter.Header().Set("content-type", "application/json")
+	respWriter.Write(response)
+	return
 
 }

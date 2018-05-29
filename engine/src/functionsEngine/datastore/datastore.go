@@ -3,8 +3,8 @@ package datastore
 import (
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
-	"functionsEngine.io/structs"
-	. "functionsEngine.io/util"
+	"functionsEngine/structs"
+	. "functionsEngine/util"
 	"os"
 	"sync"
 )

@@ -20,8 +20,8 @@ package handlers
 import (
 	"encoding/json"
 	"github.com/gorilla/mux"
-	"functionsEngine.io/structs"
-	. "functionsEngine.io/util"
+	"functionsEngine/structs"
+	. "functionsEngine/util"
 	"net/http"
 )
 
