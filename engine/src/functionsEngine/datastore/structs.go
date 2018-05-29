@@ -17,11 +17,6 @@
 
 package datastore
 
-type BasicAppData struct {
-	AppName string `yaml:"appName"`
-	AppLang string `yaml:"appLang"`
-}
-
 type AppConfigData struct {
 	AppId         string            `yaml:"appId"`
 	AppName       string            `yaml:"appName"`
@@ -32,13 +27,13 @@ type AppConfigData struct {
 
 type JavaAppConfigData struct {
 	AppId                    string   `yaml:"appId"`
-	className                string   `yaml:"className"`
-	methodName               string   `yaml:"methodName"`
-	invokationURL            string   `yaml:"invokationURL"`
-	queryParams              []string `yaml:"queryParams"`
-	pathParams               []string `yaml:"pathParams"`
-	requestPayloadClassName  string   `yaml:"requestPayloadClassName"`
-	responsePayloadClassName string   `yaml:"responsePayloadClassName"`
+	ClassName                string   `yaml:"className"`
+	MethodName               string   `yaml:"methodName"`
+	InvokationURL            string   `yaml:"invokationURL"`
+	QueryParams              []string `yaml:"queryParams"`
+	PathParams               []string `yaml:"pathParams"`
+	RequestPayloadClassName  string   `yaml:"requestPayloadClassName"`
+	ResponsePayloadClassName string   `yaml:"responsePayloadClassName"`
 }
 
 type OperationResult struct {

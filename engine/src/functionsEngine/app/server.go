@@ -30,8 +30,9 @@ func StartServer(appEngineConfig structs.AppEngineConfig) {
 
 	/* Attach handlers by invoking the attachHandler functions */
 	handlers.AttachAppEngineHeartbeatHandler(appEngineConfig, router)
-	handlers.AttachAppRegistrationHandler(appEngineConfig, router)
-	handlers.AttachAppListHandler(appEngineConfig, router)
+	handlers.AttachCreateAppHandler(appEngineConfig, router)
+	handlers.AttachUpdateAppHandler(appEngineConfig, router)
+	handlers.AttachListAppsHandler(appEngineConfig, router)
 	handlers.AttachAppInvokeHandler(appEngineConfig, router)
 
 	/* Start the listener */

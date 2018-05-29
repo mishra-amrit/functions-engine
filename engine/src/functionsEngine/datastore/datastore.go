@@ -58,11 +58,16 @@ func AppRepository() AppRepo {
 	return appRepo
 }
 
-func Commit() {
+func Commit() bool {
 	mu.Lock()
 	appRepoFileBuffer, marshalErr := yaml.Marshal(appRepo)
 	if marshalErr == nil {
-		ioutil.WriteFile(dataPath+"/"+appRepoFileName, appRepoFileBuffer, 0666)
+		commitErr := ioutil.WriteFile(dataPath+"/"+appRepoFileName, appRepoFileBuffer, 0666)
+		if commitErr == nil {
+			mu.Unlock()
+			return true
+		}
 	}
 	mu.Unlock()
+	return false
 }

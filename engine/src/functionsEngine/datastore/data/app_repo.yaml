@@ -1,1 +1,29 @@
-apps: {}
+apps:
+  HelloWorld:
+    appId: HelloWorld
+    appName: HelloWorld
+    appLang: java
+    appExecLocation: NA
+    javaAppConfig:
+      appId: HelloWorld
+      className: com.aklabs.HelloWorld
+      methodName: sayHello
+      invokationURL: ""
+      queryParams: []
+      pathParams: []
+      requestPayloadClassName: ""
+      responsePayloadClassName: java.lang.String
+  HelloWorld1:
+    appId: HelloWorld1
+    appName: HelloWorld1
+    appLang: java
+    appExecLocation: NA
+    javaAppConfig:
+      appId: HelloWorld1
+      className: com.aklabs.HelloWorld
+      methodName: sayHello
+      invokationURL: ""
+      queryParams: []
+      pathParams: []
+      requestPayloadClassName: ""
+      responsePayloadClassName: java.lang.String

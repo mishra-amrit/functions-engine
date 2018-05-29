@@ -26,9 +26,15 @@ import (
 	"net/http"
 )
 
+/* Structure for returning basic app data such as name, language in response */
+type BasicAppData struct {
+	AppName string `json:"appName"`
+	AppLang string `json:"appLang"`
+}
+
 /*  Response struct for List of Apps  */
-type AppListResponse struct {
-	apps []datastore.BasicAppData `yaml:"apps"`
+type ListAppsResponse struct {
+	Apps []BasicAppData `json:"apps"`
 }
 
 /*
@@ -36,26 +42,26 @@ type AppListResponse struct {
 	It is always exported in the Go file, for each handlers.
 	It is the only function in a handlers which is exported.
 */
-func AttachAppListHandler(appEngineConfig structs.AppEngineConfig, router *mux.Router) {
+func AttachListAppsHandler(appEngineConfig structs.AppEngineConfig, router *mux.Router) {
 	path := "/app"
-	(*router).HandleFunc(appEngineConfig.ContextPath+path, appListHandler).Methods("GET")
+	(*router).HandleFunc(appEngineConfig.ContextPath+path, listAppsHandler).Methods("GET")
 }
 
 /*
 	The handlers is not exported, it's attached to the server by AttachRegisterAppHandler()
 */
-func appListHandler(respWriter http.ResponseWriter, request *http.Request) {
+func listAppsHandler(respWriter http.ResponseWriter, request *http.Request) {
 
 	Log("appListHandler \t\t:: received : " + request.Method + "\t" + request.RequestURI)
 
-	appListResponse := AppListResponse{}
+	listAppsResponse := ListAppsResponse{Apps: nil}
 
 	apps := datastore.AppRepository().Apps
 	for appName, appConfigData := range apps {
-		appListResponse.apps = append(appListResponse.apps, datastore.BasicAppData{AppName: appName, AppLang: appConfigData.AppLang})
+		listAppsResponse.Apps = append(listAppsResponse.Apps, BasicAppData{AppName: appName, AppLang: appConfigData.AppLang})
 	}
 
-	response, err := json.Marshal(appListResponse)
+	response, err := json.Marshal(listAppsResponse)
 
 	if err != nil {
 		http.Error(respWriter, err.Error(), 500)
