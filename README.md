@@ -28,7 +28,7 @@ Written in Go
 
 Note: Currently it supports only Java apps, future releases will also support Node.js & Go. Java apps should be uploaded as a jar, for apps built using Node.js, Go should be uploaded as zip/archives.
 
-# Build the project
+# Build the project 
     
     cd $PROJECT_HOME/engine
     "./build.sh"
@@ -43,7 +43,7 @@ Note: Currently it supports only Java apps, future releases will also support No
     bin/deployments   - All the jars which are uploaded by the user will be stored
                         here in a uniquely named directory.
 
-# Executable the binary 
+# Running FunctionsEngine from build output
 
     cd $PROJECT_HOME/engine
     "./run.sh"
