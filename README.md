@@ -1,8 +1,8 @@
-# FunctionsEngine - Simple Serverless Platform
+# <img src="https://raw.githubusercontent.com/mishra-amrit/FunctionsEngine/master/assets/logo.png" width="50%" height="50%">
+
+FunctionsEngine lets you deploy your own Function as a Service / Serverless Platform.
 
 Serverless computing is a cloud computing model which lets you focus on your application logic without worrying about underlying servers, scalability, load balancing, application servers, etc.
-
-With FunctionsEngine you can deploy your own serverless computing platform.
 
 <b>1. Code > 2. Package as Jar or zip > 3. Upload to FunctionsEngine > 4. Ready to Go !</b>
 
