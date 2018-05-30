@@ -1,8 +1,6 @@
 # <img src="https://raw.githubusercontent.com/mishra-amrit/FunctionsEngine/master/assets/logo.png" width="50%" height="50%">
 
-FunctionsEngine lets you deploy your own Function as a Service / Serverless Platform.
-
-Serverless computing is a cloud computing model which lets you focus on your application logic without worrying about underlying servers, scalability, load balancing, application servers, etc.
+<b> FunctionsEngine lets you deploy your own Function as a Service / Serverless Platform.</b>
 
 <b>1. Code > 2. Package as Jar or zip > 3. Upload to FunctionsEngine > 4. Ready to Go !</b>
 
@@ -28,10 +26,9 @@ It's very easy to use for developers and very easy to manage for admins/operator
 
 Written in Go
 
-Note: Currently it supports only Java apps, future releases will also support Node.js & Go.
-Java apps should be uploaded as a jar, for apps built using Node.js, Go should be uploaded as zip/archives.
+Note: Currently it supports only Java apps, future releases will also support Node.js & Go. Java apps should be uploaded as a jar, for apps built using Node.js, Go should be uploaded as zip/archives.
 
-<b>Build the project :</b>
+# Build the project
     
     cd $PROJECT_HOME/engine
     "./build.sh"
@@ -46,7 +43,7 @@ Java apps should be uploaded as a jar, for apps built using Node.js, Go should b
     bin/deployments   - All the jars which are uploaded by the user will be stored
                         here in a uniquely named directory.
 
-<b>Executable output from bin:</b>
+# Executable the binary 
 
     cd $PROJECT_HOME/engine
     "./run.sh"
@@ -57,6 +54,6 @@ Java apps should be uploaded as a jar, for apps built using Node.js, Go should b
     $PROJECT_HOME is the root of the project 
     i.e /home/test/work/FunctionsEngine/engine
     
-<b>Java 8 Runtime Documentation :</b><br/>
+# FunctionsEngine - Java 8 Runtime Documentation
 <a href="https://github.com/mishra-amrit/myappengine/tree/master/appengine-runtimes/java8-runtime">https://github.com/mishra-amrit/FunctionsEngine/tree/master/functionRuntimes/java8-runtime</a>
 
