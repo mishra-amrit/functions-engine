@@ -54,6 +54,6 @@ Note: Currently it supports only Java apps, future releases will also support No
     $PROJECT_HOME is the root of the project 
     i.e /home/test/work/FunctionsEngine/engine
     
-# FunctionsEngine - Java 8 Runtime Documentation
+# FunctionsEngine's Java 8 Runtime
 <a href="https://github.com/mishra-amrit/myappengine/tree/master/appengine-runtimes/java8-runtime">https://github.com/mishra-amrit/FunctionsEngine/tree/master/functionRuntimes/java8-runtime</a>
 
