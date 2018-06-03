@@ -53,11 +53,11 @@ func AttachUpdateAppHandler(appEngineConfig structs.AppEngineConfig, router *mux
 }
 
 /*
-	The handlers is not exported, it's attached to the server by AttachAppRegistrationHandler()
+	The handler is not exported, it's attached to the server by AttachAppRegistrationHandler()
 */
 func updateAppHandler(respWriter http.ResponseWriter, request *http.Request) {
 
-	Log("appUpdationHandler \t:: received : " + request.Method + "\t" + request.RequestURI)
+	Log("updateAppHandler \t:: received : " + request.Method + "\t" + request.RequestURI)
 
 	appUpdationResp := AppUpdateResponse{Message: "Service is up !"}
 	response, err := json.Marshal(appUpdationResp)

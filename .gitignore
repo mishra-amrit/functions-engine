@@ -2,3 +2,5 @@
 /appengine-runtimes/java8-runtime/out
 /appengine-runtimes/java8-runtime/bin
 /appengine-runtimes/java8-runtime/build
+/engine/bin/functionsEngine
+/engine/bin/deployments/HelloWorld_executable.jar

@@ -20,7 +20,9 @@ package app
 import (
 	"functionsEngine/handlers"
 	"functionsEngine/structs"
+
 	"github.com/gorilla/mux"
+
 	"net/http"
 )
 
@@ -31,6 +33,7 @@ func StartServer(appEngineConfig structs.AppEngineConfig) {
 	/* Attach handlers by invoking the attachHandler functions */
 	handlers.AttachAppEngineHeartbeatHandler(appEngineConfig, router)
 	handlers.AttachCreateAppHandler(appEngineConfig, router)
+	handlers.AttachUploadAppHandler(appEngineConfig, router)
 	handlers.AttachUpdateAppHandler(appEngineConfig, router)
 	handlers.AttachListAppsHandler(appEngineConfig, router)
 	handlers.AttachAppInvokeHandler(appEngineConfig, router)

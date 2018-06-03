@@ -48,7 +48,7 @@ func AttachListAppsHandler(appEngineConfig structs.AppEngineConfig, router *mux.
 }
 
 /*
-	The handlers is not exported, it's attached to the server by AttachRegisterAppHandler()
+	The handler is not exported, it's attached to the server by AttachRegisterAppHandler()
 */
 func listAppsHandler(respWriter http.ResponseWriter, request *http.Request) {
 

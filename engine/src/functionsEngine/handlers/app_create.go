@@ -55,7 +55,7 @@ func AttachCreateAppHandler(appEngineConfig structs.AppEngineConfig, router *mux
 }
 
 /*
-	The handlers is not exported, it's attached to the server by AttachAppRegistrationHandler()
+	The handler is not exported, it's attached to the server by AttachAppRegistrationHandler()
 */
 func createAppHandler(respWriter http.ResponseWriter, request *http.Request) {
 
