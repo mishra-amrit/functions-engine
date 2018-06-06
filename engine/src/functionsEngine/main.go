@@ -40,6 +40,8 @@ func main() {
 	datastore.Initialize(appEngineEnv.AppEngineConfig)
 	Log("DataStore initialized.")
 
+	go app.InitRuntimes(appEngineEnv.AppEngineConfig)
+
 	Log("Engine Initialized.")
 
 	app.StartServer(appEngineEnv.AppEngineConfig)

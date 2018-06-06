@@ -3,11 +3,11 @@
 echo "Initializing build.."
 rm -rf ./bin
 echo "Creating directory structure.."
-mkdir -p bin/configuration bin/data/log bin/deployments bin/runtime
+mkdir -p bin/configuration bin/data/log bin/deployments bin/runtimes
 echo "Copying configurations.."
 cp *config.yaml bin/configuration/
 echo "Copying runtimes.."
-cp -rv src/functionsEngine/runtime/* bin/runtime
+cp -rv src/functionsEngine/runtimes/* bin/runtimes
 
 echo "Initializing environment variables"
 source env_setup.sh

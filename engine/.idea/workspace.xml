@@ -10,7 +10,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -25,6 +25,7 @@
       <find>appData</find>
       <find>FileMode</find>
       <find>AppList</find>
+      <find>\/\*\n \* Licensed to the Apache Software Foundation \(ASF\) under one or more\n \* contributor license agreements\.  See the NOTICE file distributed with\n \* this work for additional information regarding copyright ownership\.\n \* The ASF licenses this file to You under the Apache License\, Version 2\.0\n \* \(the \&quot;License\&quot;\)\; you may not use this file except in compliance with\n \* the License\.  You may obtain a copy of the License at\n \*\n \*     http\:\/\/www\.apache\.org\/licenses\/LICENSE\-2\.0\n \*\n \* Unless required by applicable law or agreed to in writing\, software\n \* distributed under the License is distributed on an \&quot;AS IS\&quot; BASIS\,\n \* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND\, either express or implied\.\n \* See the License for the specific language governing permissions and\n \* limitations under the License\.\n \*\/\n\npackage handlers\n\nimport \(\n\	\&quot;encoding\/json\&quot;\n\	\&quot;functionsEngine\/datastore\&quot;\n\	\&quot;functionsEngine\/structs\&quot;\n\	\. \&quot;functionsEngine\/util\&quot;\n\	\&quot;io\&quot;\n\	\&quot;net\/http\&quot;\n\	\&quot;os\&quot;\n\n\	\&quot;github\.com\/gorilla\/mux\&quot;\n\)\n\n\/\*  App Upload Resposne  \*\/\ntype AppUploadResponse struct \{\n\	Message string \`json\:\&quot;message\&quot;\`\n\	Status  string \`json\:\&quot;status\&quot;\`\n\}\n\nvar deploymentPath string\n\n\/\*\n\	The attach function which attaches the handlers to the server\.\n\	It is always exported in the Go file\, for each handlers\.\n\	It is the only function in a handlers which is exported\.\n\*\/\nfunc AttachUploadAppHandler\(appEngineConfig structs\.AppEngineConfig\, router \*mux\.Router\) \{\n\	updateAppPath \:\= \&quot;\/app\/\{appName\}\/upload\&quot;\n\	deploymentPath \= appEngineConfig\.DeploymentPath\n\	\(\*router\)\.HandleFunc\(appEngineConfig\.ContextPath\+updateAppPath\, uploadAppHandler\)\.Methods\(\&quot;POST\&quot;\)\n\}\n\n\/\*\n\	The handler is not exported\, it\'s attached to the server by AttachUploadAppHandler\(\)\n\*\/\nfunc uploadAppHandler\(respWriter http\.ResponseWriter\, request \*http\.Request\) \{\n\n\	Log\(\&quot;uploadAppHandler \\t\:\: received \: \&quot; \+ request\.Method \+ \&quot;\\t\&quot; \+ request\.RequestURI\)\n\n\	routeVars \:\= mux\.Vars\(request\)\n\	appName \:\= routeVars\[\&quot;appName\&quot;\]\n\	Log\(\&quot;appName \: \&quot; \+ appName\)\n\n\	app \:\= datastore\.AppRepository\(\)\.Get\(appName\)\n\	if app \!\= nil \{\n\n\	\	request\.ParseMultipartForm\(32 \&lt;\&lt; 20\)\n\	\	file\, handler\, err \:\= request\.FormFile\(\&quot;uploadfile\&quot;\)\n\	\	if err \!\= nil \{\n\	\	\	respond\(respWriter\, \&quot;Error\&quot;\, \&quot;\&quot;\)\n\	\	\	return\n\	\	\}\n\	\	defer file\.Close\(\)\n\n\	\	extension \:\= \&quot;\&quot;\n\	\	contentType \:\= handler\.Header\.Get\(\&quot;Content\-Type\&quot;\)\n\	\	switch contentType \{\n\	\	case \&quot;application\/java\-archive\&quot;\:\n\	\	\	extension \= \&quot;jar\&quot;\n\	\	default\:\n\	\	\	respond\(respWriter\, \&quot;Error\&quot;\, \&quot;The uploaded file type is not allowed\&quot;\)\n\	\	\	return\n\	\	\}\n\n\	\	f\, err \:\= os\.OpenFile\(deploymentPath\+\&quot;\/\&quot;\+appName\+\&quot;_executable\.\&quot;\+extension\, os\.O_WRONLY\|os\.O_CREATE\, 0666\)\n\	\	if err \!\= nil \{\n\	\	\	respond\(respWriter\, \&quot;Error\&quot;\, \&quot;\&quot;\)\n\	\	\	return\n\	\	\}\n\	\	defer f\.Close\(\)\n\	\	io\.Copy\(f\, file\)\n\n\	\	if err \!\= nil \{\n\	\	\	http\.Error\(respWriter\, err\.Error\(\)\, 500\)\n\	\	\	respond\(respWriter\, \&quot;Error\&quot;\, \&quot;\&quot;\)\n\	\	\	return\n\	\	\}\n\n\	\	respond\(respWriter\, \&quot;Success\&quot;\, \&quot;\&quot;\)\n\n\	\} else \{\n\	\	respond\(respWriter\, \&quot;Error\&quot;\, \&quot;App is not registered\&quot;\)\n\	\}\n\n\	return\n\n\}\n\nfunc respond\(respWriter http\.ResponseWriter\, status string\, message string\) \{\n\	appUploadResponse \:\= AppUploadResponse\{Message\: message\, Status\: status\}\n\	response\, _ \:\= json\.Marshal\(appUploadResponse\)\n\	respWriter\.Header\(\)\.Set\(\&quot;content\-type\&quot;\, \&quot;application\/json\&quot;\)\n\	respWriter\.Write\(response\)\n\}\n</find>
     </findStrings>
     <replaceStrings>
       <replace>AppRepo</replace>
@@ -46,9 +47,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/myappengine.io/handler/app_registration.go" />
-        <option value="$PROJECT_DIR$/src/myappengine.io/app/initializer.go" />
-        <option value="$PROJECT_DIR$/src/myappengine.io/handler/appengine_heartbeat.go" />
         <option value="$PROJECT_DIR$/appengine_config.yaml" />
         <option value="$PROJECT_DIR$/src/myappengine.io/ds/appengine_ds.go" />
         <option value="$PROJECT_DIR$/src/myappengine.io/handlers/app_register.go" />
@@ -84,8 +82,6 @@
         <option value="$PROJECT_DIR$/src/functionsEngine.io/main.go" />
         <option value="$PROJECT_DIR$/run.sh" />
         <option value="$PROJECT_DIR$/.idea/modules.xml" />
-        <option value="$PROJECT_DIR$/build.sh" />
-        <option value="$PROJECT_DIR$/src/functionsEngine/main.go" />
         <option value="$PROJECT_DIR$/src/functionsEngine/datastore/app_repo_crud.go" />
         <option value="$PROJECT_DIR$/src/functionsEngine/handlers/app_mgmt.go" />
         <option value="$PROJECT_DIR$/src/functionsEngine/datastore/datastore.go" />
@@ -93,10 +89,15 @@
         <option value="$PROJECT_DIR$/src/functionsEngine/handlers/app_list.go" />
         <option value="$PROJECT_DIR$/src/functionsEngine/handlers/app_invoke.go" />
         <option value="$PROJECT_DIR$/src/functionsEngine/handlers/app_create.go" />
+        <option value="$PROJECT_DIR$/src/functionsEngine/util/zip.go" />
         <option value="$PROJECT_DIR$/src/functionsEngine/handlers/app_update.go" />
-        <option value="$PROJECT_DIR$/src/functionsEngine/app/server.go" />
-        <option value="$PROJECT_DIR$/myappengine_config.yaml" />
         <option value="$PROJECT_DIR$/src/functionsEngine/handlers/app_upload.go" />
+        <option value="$PROJECT_DIR$/src/functionsEngine/app/server.go" />
+        <option value="$PROJECT_DIR$/src/functionsEngine/app/runtimes.go" />
+        <option value="$PROJECT_DIR$/build.sh" />
+        <option value="$PROJECT_DIR$/myappengine_config.yaml" />
+        <option value="$PROJECT_DIR$/src/functionsEngine/main.go" />
+        <option value="$PROJECT_DIR$/src/functionsEngine/app/runtime_mgr.go" />
       </list>
     </option>
   </component>
@@ -119,6 +120,22 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="engine" type="cbb8eebc:String" user="engine" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="engine" type="cbb8eebc:String" user="engine" />
+              <item name=".idea" type="cbb8eebc:String" user=".idea" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -129,6 +146,24 @@
             <path>
               <item name="engine" type="b2602c69:ProjectViewProjectNode" />
               <item name="engine" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="engine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="engine" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+              <item name="runtimes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="engine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="engine" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+              <item name="runtimes" type="462c0819:PsiDirectoryNode" />
+              <item name="java8" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="engine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="engine" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -142,15 +177,7 @@
               <item name="engine" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="functionsEngine" type="462c0819:PsiDirectoryNode" />
-              <item name="datastore" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="engine" type="b2602c69:ProjectViewProjectNode" />
-              <item name="engine" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="functionsEngine" type="462c0819:PsiDirectoryNode" />
-              <item name="datastore" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="engine" type="b2602c69:ProjectViewProjectNode" />
@@ -164,37 +191,7 @@
               <item name="engine" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="functionsEngine" type="462c0819:PsiDirectoryNode" />
-              <item name="runtime" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="engine" type="b2602c69:ProjectViewProjectNode" />
-              <item name="engine" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="functionsEngine" type="462c0819:PsiDirectoryNode" />
               <item name="structs" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="engine" type="b2602c69:ProjectViewProjectNode" />
-              <item name="engine" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="functionsEngine" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="engine" type="cbb8eebc:String" user="engine" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="engine" type="cbb8eebc:String" user="engine" />
-              <item name=".idea" type="cbb8eebc:String" user=".idea" />
             </path>
           </expand>
           <select />
@@ -214,16 +211,18 @@
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Go" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/functionsEngine/runtimes/java8" />
+      <recent name="$PROJECT_DIR$/bin/runtimes/java8" />
+      <recent name="$PROJECT_DIR$/src/myappengine.io/runtime" />
+      <recent name="$PROJECT_DIR$/src/myappengine.io/handler" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/myappengine.io/datastore" />
       <recent name="$PROJECT_DIR$/src/myappengine.io/structs" />
       <recent name="$PROJECT_DIR$/src/myappengine.io/app" />
       <recent name="$PROJECT_DIR$/src/myappengine.io/handlers" />
       <recent name="$PROJECT_DIR$/src/myappengine.io/handlers/app" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/myappengine.io/runtime" />
-      <recent name="$PROJECT_DIR$/src/myappengine.io/handler" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -241,18 +240,18 @@
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1680" height="973" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27106228" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2741148" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.501221" side_tool="true" weight="0.32990867" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32990867" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32990867" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.498779" visible="true" weight="0.32990867" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.498779" visible="true" weight="0.4303653" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -263,21 +262,21 @@
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25579977" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32990867" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.498779" weight="0.32990867" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.501221" side_tool="true" weight="0.32990867" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32990867" />
       <window_info id="Favorites" order="2" side_tool="true" />
     </layout-to-restore>
   </component>
@@ -293,41 +292,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/functionsEngine/handlers/app_upload.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="16" selection-start-column="16" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/functionsEngine/handlers/app_create.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="46" column="2" lean-forward="true" selection-start-line="46" selection-start-column="2" selection-end-line="46" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/functionsEngine/app/server.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="26" column="46" selection-start-line="26" selection-start-column="46" selection-end-line="26" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/functionsEngine/app/initializer.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="48" column="49" lean-forward="true" selection-start-line="48" selection-start-column="49" selection-end-line="48" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/functionsEngine/handlers/app_list.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="30" column="57" lean-forward="true" selection-start-line="30" selection-start-column="57" selection-end-line="30" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/myappengine.io/structs/response_ds.go" />
     <entry file="file://$PROJECT_DIR$/src/functionsEngine/structs/appengine_data.go">
       <provider selected="true" editor-type-id="text-editor">
@@ -431,13 +395,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/install_dependencies.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -487,53 +444,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/functionsEngine/handlers/app_create.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="502">
-          <caret line="57" column="15" selection-start-line="57" selection-start-column="15" selection-end-line="57" selection-end-column="15" />
-          <folding>
-            <element signature="e#821#983#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/functionsEngine/handlers/app_invoke.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="50" column="44" selection-start-line="49" selection-start-column="4" selection-end-line="50" selection-end-column="44" />
-          <folding>
-            <element signature="e#821#939#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/functionsEngine/app/server.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" column="59" selection-start-line="35" selection-start-column="59" selection-end-line="35" selection-end-column="59" />
-          <folding>
-            <element signature="e#816#921#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/functionsEngine/handlers/heartbeat.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="41" column="2" selection-start-line="41" selection-start-column="2" selection-end-line="41" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/functionsEngine/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="36" column="29" selection-start-line="36" selection-start-column="29" selection-end-line="36" selection-end-column="29" />
-          <folding>
-            <element signature="e#817#905#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/functionsEngine/app/initializer.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="149">
@@ -541,41 +451,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/functionsEngine/structs/appengine_data.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="20" column="18" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/functionsEngine/datastore/datastore.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-          <folding>
-            <element signature="e#19#129#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/functionsEngine/handlers/app_update.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="62" column="50" selection-start-line="61" selection-start-column="4" selection-end-line="62" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/functionsEngine/datastore/app_repo_crud.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="33" column="23" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myappengine_config.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="84" selection-start-line="3" selection-start-column="84" selection-end-line="3" selection-end-column="84" />
         </state>
       </provider>
     </entry>
@@ -591,19 +470,130 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/functionsEngine/util/zip.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="11" lean-forward="true" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/functionsEngine/handlers/app_invoke.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="43" column="61" lean-forward="true" selection-start-line="43" selection-start-column="61" selection-end-line="43" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/functionsEngine/handlers/heartbeat.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="46" column="60" selection-start-line="46" selection-start-column="60" selection-end-line="46" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/functionsEngine/handlers/app_upload.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="103" lean-forward="true" selection-start-line="103" selection-end-line="103" />
+        <state relative-caret-position="234">
+          <caret line="54" column="32" selection-start-line="54" selection-start-column="32" selection-end-line="54" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/functionsEngine/handlers/app_update.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="49" column="38" selection-start-line="49" selection-start-column="38" selection-end-line="49" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="68" selection-start-line="5" selection-start-column="68" selection-end-line="5" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/functionsEngine/app/runtimes.go" />
+    <entry file="file:///usr/local/go/src/io/io.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="77" column="17" selection-start-line="77" selection-start-column="9" selection-end-line="77" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/go/src/os/exec/exec.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="300" column="14" selection-start-line="300" selection-start-column="14" selection-end-line="300" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myappengine_config.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/functionsEngine/handlers/app_create.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="57" column="15" selection-start-line="57" selection-start-column="15" selection-end-line="57" selection-end-column="15" />
+          <folding>
+            <element signature="e#821#983#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/functionsEngine/handlers/app_list.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
+        <state relative-caret-position="-2">
+          <caret line="31" column="27" selection-start-line="31" selection-start-column="27" selection-end-line="31" selection-end-column="27" />
           <folding>
             <element signature="e#821#968#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/functionsEngine/datastore/app_repo_crud.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="33" column="23" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/functionsEngine/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="82">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
+          <folding>
+            <element signature="e#817#905#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/functionsEngine/structs/appengine_data.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/functionsEngine/app/server.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="43" column="1" selection-start-line="43" selection-start-column="1" selection-end-line="43" selection-end-column="1" />
+          <folding>
+            <element signature="e#816#921#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/functionsEngine/app/runtime_mgr.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="24" column="72" selection-start-line="24" selection-start-column="72" selection-end-line="24" selection-end-column="72" />
+          <folding>
+            <element signature="e#13#102#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -19,6 +19,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"functionsEngine/datastore"
 	"functionsEngine/structs"
 	. "functionsEngine/util"
@@ -68,25 +69,38 @@ func uploadAppHandler(respWriter http.ResponseWriter, request *http.Request) {
 			respond(respWriter, "Error", "")
 			return
 		}
+		fmt.Printf("%v\n", handler.Header)
 		defer file.Close()
 
+		/* deploy : The deployment type. Will be "file" for jar  and "dir" for node.js */
+		deploy := ""
 		extension := ""
 		contentType := handler.Header.Get("Content-Type")
 		switch contentType {
 		case "application/java-archive":
 			extension = "jar"
+			deploy = "file"
+		case "application/zip":
+			extension = ""
+			deploy = "dir"
 		default:
 			respond(respWriter, "Error", "The uploaded file type is not allowed")
 			return
 		}
 
-		f, err := os.OpenFile(deploymentPath+"/"+appName+"_executable."+extension, os.O_WRONLY|os.O_CREATE, 0666)
+		finalDeploymentPath := deploymentPath + "/" + appName + "_executable." + extension
+
+		f, err := os.OpenFile(finalDeploymentPath, os.O_WRONLY|os.O_CREATE, 0666)
 		if err != nil {
 			respond(respWriter, "Error", "")
 			return
 		}
 		defer f.Close()
 		io.Copy(f, file)
+
+		if deploy == "dir" {
+			Unzip(finalDeploymentPath, deploymentPath+"/"+appName+"_executable")
+		}
 
 		if err != nil {
 			http.Error(respWriter, err.Error(), 500)
@@ -95,7 +109,6 @@ func uploadAppHandler(respWriter http.ResponseWriter, request *http.Request) {
 		}
 
 		respond(respWriter, "Success", "")
-
 	} else {
 		respond(respWriter, "Error", "App is not registered")
 	}
