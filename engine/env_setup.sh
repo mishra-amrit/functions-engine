@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-GOPATH=$PWD:~/go
-GOBIN=$PWD/bin
+export PATH=$PATH:$GOROOT/bin
+export GOPATH=$PWD:~/go
