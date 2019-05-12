@@ -1,5 +1,5 @@
-# FunctionsEngine runtime for Java 8
-Performs the execution of Java apps uploaded to FunctionsEngine. This forms as a base for the Java apps.
+# Functions Engine Runtime for Java 8
+Performs the execution of Java apps uploaded to Functions Engine. This forms as a base for the Java apps.
 
 The target class of App should have one or more of the following method signatures :
 	
