@@ -1,6 +1,6 @@
 # <img src="https://raw.githubusercontent.com/mishra-amrit/FunctionsEngine/master/assets/logo.png" width="50%" height="50%">
 
-<b> FunctionsEngine lets you deploy your own Function as a Service / Serverless Platform.</b>
+<b> Functions Engine lets you deploy your own Function as a Service / Serverless Platform.</b>
 
 <b>1. Code > 2. Package as Jar or zip > 3. Upload to FunctionsEngine > 4. Ready to Go !</b>
 
@@ -43,7 +43,7 @@ Note: Currently it supports only Java apps, future releases will also support No
     bin/deployments   - All the jars which are uploaded by the user will be stored
                         here in a uniquely named directory.
 
-# Running FunctionsEngine from build output
+# Running Functions Engine from build output
 
     cd $PROJECT_HOME/engine
     "./run.sh"
@@ -54,6 +54,6 @@ Note: Currently it supports only Java apps, future releases will also support No
     $PROJECT_HOME is the root of the project 
     i.e /home/test/work/FunctionsEngine/engine
     
-# FunctionsEngine's Java 8 Runtime
+# Functions Engine's Java 8 Runtime
 <a href="https://github.com/mishra-amrit/myappengine/tree/master/appengine-runtimes/java8-runtime">https://github.com/mishra-amrit/FunctionsEngine/tree/master/functionRuntimes/java8-runtime</a>
 
